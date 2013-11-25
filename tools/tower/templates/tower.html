@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dicetower - Tools of Distant Worlds</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+		<link  href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link  href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+		<link  href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+		<link  href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome-ie7.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Cinzel:400,700,900|IM+Fell+Great+Primer+SC' rel='stylesheet' type='text/css'>
+		<style>
+			body{
+				background-image: url('http://turnlol.com/images/2012/10/abstract-dark-wood-textures-backgrounds-1680x1050-hd-wallpaper.jpg');
+			}
+			header{
+				background-color: white;
+				width: 100%;
+				font-family: 'Cinzel', serif;
+				height: 100%;
+				text-align: center;
+				position: relative;
+				display: block;
+				border-bottom: 1px solid black;
+				
+			}
+			.page-header{
+				margin-top: 0px;
+			}
+			.title{
+				font-size:3em; 
+				margin-top: 15px;
+display: inline-block;
+position: relative;
+			}
+			.container{
+				height: 100%;
+				
+			}
+			footer{
+				background-color: white;
+				border-top: 1px solid black;
+				font-family: 'Cinzel', serif;
+				text-align: center;
+				display: block;
+				width: 100%;
+				position: absolute;
+				bottom: 0px;
+			}
+			.row{
+				margin-bottom: 10px;
+			}
+		</style>
+		<script>
+		$(function(){
+			$('#details').hide();
+			$(window.document).on('click', '#throw_btn', function(){
+				$.getJSON('/tower/roll', {'d':$('#roll').val()}, function(data){
+					$('#results').text(data.result);
+					$('#details').text(JSON.stringify(data));
+					$('#details_btn').removeClass('disabled');
+				});
+			});
+			$('#details_btn').on('click', function(){
+				$('#details').toggle();
+			});
+			$('.die').on('click', function(){
+				$('#roll').val($(this).text());
+			});
+
+		});
+		</script>
+	</head>
+	<body>
+		<header class="page-header"><span class="title">Dice Tower</span></header>
+
+		<div class="container">
+			<div class="row">
+				&lt; <a href="/">Tools</a>
+			</div>
+			<div class="row well">
+				<input type="text" id="roll" placeholder="4d6+3d8+10" class="span12"></input>
+			</div>
+			<div class="row">
+				<div class="offset3 span6">
+					<center>
+					<div class="btn-group">
+						<button class="btn die">1d4</button>
+						<button class="btn die">1d6</button>
+						<button class="btn die">1d8</button>
+						<button class="btn die">1d10</button>
+						<button class="btn die">1d12</button>
+						<button class="btn die">1d20</button>
+						<button class="btn die">1d%</button>
+					</div></center>
+				</div>
+			</div>
+			<div class="row">
+				<div class="offset4 span4"><center><button id="throw_btn" class="btn btn-large btn-success">Throw</button></center></div>
+			</div>
+			<div class="row well">
+					<div class="span1">Result:</div><h1 class="span10" id="results">
+					</h1>
+
+					<a class="btn btn-info disabled" id="details_btn">Details</a>
+				
+					<div class="span12" id="details"></div>
+			</div>
+		</div>
+		<footer>&copy; 2013 MMo.IT</footer>
+	</body>
+</html>

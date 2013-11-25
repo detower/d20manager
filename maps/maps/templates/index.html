@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>Maps of Distant Worlds</title>
+	<link rel="stylesheet" href="http://ol3js.org/en/r3.0.0-alpha.1/build/ol.css" type="text/css">
+	<script src="http://ol3js.org/en/r3.0.0-alpha.4/build/ol.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+	<script>
+	
+		$(function(){
+			h = $(window).height();
+			$('#map').height(h);
+			var map = new ol.Map({
+				layers: [
+					new ol.layer.TileLayer({
+						source: new ol.source.Stamen({
+								layer: 'watercolor'
+							})
+						}),
+					new ol.layer.TileLayer({
+						source: new ol.source.Stamen({
+							layer: 'terrain-labels'
+						})
+					})],  
+				controls: ol.control.defaults({}, [
+					new ol.control.ScaleLine({
+						units: ol.control.ScaleLineUnits.METRIC
+					})	
+				]),
+				renderers: ol.RendererHints.createFromQueryData(),
+				target: 'map',
+				view: new ol.View2D({
+					center: [1265510, 5554630],
+					zoom: 20
+				})
+			});
+			$('#specifics').hide();
+			$('#name').on('mouseover', function(){
+				$('#specifics').show();
+			}).on('mouseout', function(){
+				$('#specifics').hide();
+			});
+		});
+
+	</script>
+	<style type="text/css">
+
+	#map{
+		width: 100%;
+		min-height: 400px;
+	}
+	#name{
+		position: absolute;
+		right: 50px;
+		top:30px;
+		font-family: 'Port Lligat Slab', serif;
+		font-size:4em;
+	}
+	#specifics{
+		position: absolute;
+		right: 50px;
+		top:65px;
+		font-family: 'Port Lligat Slab', serif;
+		font-size:1em;
+		text-align: right;
+	}
+
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<div id="name">Terra</div>
+	<div id="specifics">
+		<div id="region">Emilia</div>
+		<div id="province">Bolnonia</div>
+		<div id="city">Bolnonia</div>
+		<div id="neighbourhood">Castrum</div>
+		<div id="street">Main</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+	
+			<div class="hero-unit">
+				<h2><i class="icon-user icon-fixed-width"></i>{{char.name}} ({{char.level}}) - <a href="#">{{char.race.all.0.race.name}}</a> - {{char.alignment_lawfulness_str}} {{char.alignment_indole_str}}</h2>
+			</div>
+			<div class="row abilities">
+				<div class="row">
+					<div class="span10 offset1">
+
+						<span class="span2">Ability</span>
+						<span class="span1">Modifier</span>
+						<span class="span1">Value</span>
+						<span class="span1">Base</span>
+						<span class="span1">Alterations</span>
+					</div>
+				</div>
+				{%for ability in char.abilities.all %}
+				<div class="row">
+					<div class="span10 offset1">
+
+						<span class="span2"><i class="icon-bookmark-empty icon-fixed-width"></i>{{ability.ability.name}}</span>
+						<span class="span1">{{ability.modifier}}</span>
+						<span class="span1">({{ability.value}})</span>
+						<span class="span1">({{ability.base_value}})</span>
+						<span class="span1">({{ability.altered_value}})</span>
+					</div>
+				</div>
+				{%endfor%}
+			</div>
+			
+			{%for klass in char.klass %}
+			<div class="row klass" id="klasses">
+				<div class="row">
+					<h3 class="span10 offset1"><a href="#">{{klass.klass.name}}</a> ({{klass.level}})</h3>
+				</div>
+				<div class="row">
+					<table class="table table-condensed span10 offset1">
+						<tr><th>Level</th><th>Base Attack Bonus</th><th>Fort. Save</th><th>Will Save</th><th>Ref. Save</th></tr>
+						{% for level in klass.levels %}
+						<tr><td>{{level.level}}</td><td>{{level.base_attack_bonus.all.0.modifier}}</td><td>{{level.fort_save.all.0.modifier}}</td><td>{{level.will_save.all.0.modifier}}</td><td>{{level.ref_save.all.0.modifier}}</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+				{% for feat in klass.feats %}
+				<div class="row">
+					<span class="span10 offset1"><a href="#">{{feat.name}}</a></span>
+				</div>
+				
+				{% endfor %}
+			</div>
+			{% endfor %}
+			<div class="row" id="skills">
+				{% for skill in char.skills %}
+				<div class="span10 offset1">
+				 	<span class="span3"><i class="icon-bookmark icon-fixed-width"></i><a href="#">{{skill.skill}}</a> ({{skill.ability}})</span>
+					<span class="span1">{{skill.value}}</span>
+				</div>
+				{% endfor %}
+			</div>
+{% endblock content %}
